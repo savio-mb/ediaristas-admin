@@ -10,14 +10,19 @@ Route::get('/', [LoginController::class, 'showLoginForm']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware('auth')->group(function () {
 
-// Routes to works with services
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('usuarios', UsuarioController::class);
+    // Routes to works with services
 
-Route::get('/servicos', [ServicoController::class, 'index'])->name('servicos.index');
-Route::get('/servicos/create',[ServicoController::class, 'create'])->name('servicos.create');
-Route::post('/servicos',[ServicoController::class,'store'])->name('servicos.store');
-Route::get('/servicos/{servico}/edit', [ServicoController::class, 'edit'])->name('servicos.edit');
-Route::put('/servicos/{servico}', [ServicoController::class, 'update'])->name('servicos.update');
+    Route::resource('usuarios', UsuarioController::class);
+
+    Route::get('/servicos', [ServicoController::class, 'index'])->name('servicos.index');
+    Route::get('/servicos/create',[ServicoController::class, 'create'])->name('servicos.create');
+    Route::post('/servicos',[ServicoController::class,'store'])->name('servicos.store');
+    Route::get('/servicos/{servico}/edit', [ServicoController::class, 'edit'])->name('servicos.edit');
+    Route::put('/servicos/{servico}', [ServicoController::class, 'update'])->name('servicos.update');
+});
+
+
