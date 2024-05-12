@@ -45,27 +45,23 @@ class ServicoController extends Controller
 
     /**
      * Mostra o formulário preenchdio par alteração
-     * @param int $id
+     * @param Servico $servico
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
      */
-    public function edit(int $id)
+    public function edit(Servico $servico)
     {
-        $servico = Servico::findOrFail($id);
-
         return view('servicos.edit')->with('servico', $servico);
     }
 
     /**
      * Atualiza um registro no banco de dados
-     * @param int $id
+     * @param Servico $servico
      * @param ServicoRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(int $id, ServicoRequest $request)
+    public function update(Servico $servico, ServicoRequest $request)
     {
        $dados = $request->except('_token', '_method');
-
-       $servico = Servico::findOrFail($id);
 
        $servico->update($dados);
 
